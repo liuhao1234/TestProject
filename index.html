@@ -22,10 +22,16 @@
       console.log('devicechange')
       MediaDevices.enumerateDevices().then(devices=>{
         console.log(devices)
+        devices.forEach(element => {
+          console.log(element.toJSON())
+        });
       })
     });
     MediaDevices.enumerateDevices().then(devices=>{
       console.log(devices)
+      devices.forEach(element => {
+        console.log(element.toJSON())
+      });
     })
   </script>
 </body>
