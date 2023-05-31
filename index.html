@@ -13,9 +13,20 @@
   <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
   <script>
     var vConsole = new window.VConsole();
-    console.log(navigator)
-    console.log(navigator.language)
+    var MediaDevices = navigator.mediaDevices
+    console.log(MediaDevices)
     document.getElementById('language').innerHTML = navigator.language
+    MediaDevices.addEventListener('devicechange', () => {
+      // Do whatever you need to with the devices
+      // Maybe use enumerateDevices() to see what connected
+      console.log('devicechange')
+      MediaDevices.enumerateDevices().then(devices=>{
+        console.log(devices)
+      })
+    });
+    MediaDevices.enumerateDevices().then(devices=>{
+      console.log(devices)
+    })
   </script>
 </body>
 </html>
