@@ -13,8 +13,9 @@
   <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
   <script>
     var vConsole = new window.VConsole();
+    console.log(navigator)
     console.log(navigator.language)
-    document.getElementById('language').text(navigator.language)
+    document.getElementById('language').innerHTML = navigator.language
   </script>
 </body>
 </html>
