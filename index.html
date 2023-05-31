@@ -21,13 +21,14 @@
     document.getElementById('language').innerHTML = navigator.language
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       console.log(stream)
+      MediaDevices.enumerateDevices().then(devices=>{
+        console.log(devices)
+        devices.forEach(element => {
+          console.log(element.toJSON())
+        });
+      })
     })
-    MediaDevices.enumerateDevices().then(devices=>{
-      console.log(devices)
-      devices.forEach(element => {
-        console.log(element.toJSON())
-      });
-    })
+    
   </script>
 </body>
 </html>
