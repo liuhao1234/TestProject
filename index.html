@@ -9,21 +9,33 @@
 <body>
   <div>
     <div><span>navigator.language</span>:<span id="language"></span></div>
+    <div>---------------------</div>
+    <div id="audioinput"></div>
+    <div><span>是否有耳机设备连接</span>:<span id="hasDevice"></span></div>
     <audio controls>
       <source src="test.mp3" type="audio/mpeg">
       Your browser does not support this audio format.
     </audio>
   </div>
   <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script>
     var vConsole = new window.VConsole();
     var MediaDevices = navigator.mediaDevices
-    document.getElementById('language').innerHTML = navigator.language
+    console.log(navigator)
+    $('#language').text(navigator.language)
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       MediaDevices.enumerateDevices().then(devices=>{
+        var audioDeviceList = []
         devices.forEach(element => {
           console.log(element.toJSON())
+          const currentDevice = element.toJSON()
+          if(currentDevice.kind === 'audioinput'){
+            audioDeviceList.push(currentDevice)
+            $("#audioinput").append("<div><span>麦克(耳机)设备</span>:<span>"+currentDevice.label+"</span></div>")
+          }
         });
+        $("#hasDevice").text(audioDeviceList.length>1?"是":"否")
       })
     })
     
