@@ -10,6 +10,8 @@
   <div>
     <div><span>navigator.language</span>:<span id="language"></span></div>
     <div>---------------------</div>
+    <div><span>设备端</span>:<span id="client"></span></div>
+    <div><span>设备系统</span>:<span id="phoneSystem"></span></div>
     <div><span>是否有耳机设备连接</span>:<span id="hasDevice"></span></div>
     <div>---------------------</div>
     <audio controls>
@@ -24,6 +26,8 @@
     var MediaDevices = navigator.mediaDevices
     console.log("window navigator",navigator)
     $('#language').text(navigator.language)
+    $('#client').text(isMobile()?"移动端":"电脑端")
+    $('#phoneSystem').text(currentSystem())
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       MediaDevices.enumerateDevices().then(devices=>{
         printDevices(devices,"getUserMedia enumerateDevices")
@@ -51,6 +55,7 @@
         }
       }
     }
+    
     function currentSystem(){
       let system = navigator.userAgent.toLowerCase();
       if (/(iPhone|iPad|iPod|iOS)/i.test(system)) {
@@ -60,7 +65,12 @@
       };
       return null
     }
-    
+
+    function  isMobile(){
+      // 判断不同端
+      let plat = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
+      return plat
+    }
   </script>
 </body>
 </html>
