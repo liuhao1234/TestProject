@@ -10,8 +10,8 @@
   <div>
     <div><span>navigator.language</span>:<span id="language"></span></div>
     <div>---------------------</div>
-    <div id="audioinput"></div>
     <div><span>是否有耳机设备连接</span>:<span id="hasDevice"></span></div>
+    <div>---------------------</div>
     <audio controls>
       <source src="test.mp3" type="audio/mpeg">
       Your browser does not support this audio format.
@@ -26,26 +26,41 @@
     $('#language').text(navigator.language)
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       MediaDevices.enumerateDevices().then(devices=>{
-        var audioDeviceList = []
-        devices.forEach(element => {
-          const currentDevice = element.toJSON()
-          if(currentDevice.kind === 'audioinput'){
-            console.log("getUserMedia enumerateDevices",element.toJSON())
-            audioDeviceList.push(currentDevice)
-            $("#audioinput").append("<div><span>麦克(耳机)设备</span>:<span>"+currentDevice.label+"</span></div>")
-          }
-        });
-        $("#hasDevice").text(audioDeviceList.length>1?"是":"否")
+        printDevices(devices,"getUserMedia enumerateDevices")
       })
     })
     MediaDevices.enumerateDevices().then(devices=>{
+      printDevices(devices,"window enumerateDevices")
+    })
+    function printDevices(devices,name){
+      const audioDevices = []
       devices.forEach(element => {
         const currentDevice = element.toJSON()
         if(currentDevice.kind === 'audioinput'){
-          console.log("window enumerateDevices",element.toJSON())
+          audioDevices.push(currentDevice)
+          console.log(name,currentDevice)
         }
       })
-    })
+      const curSys = currentSystem()
+      const audioSize = audioDevices.length
+      if(curSys){
+        if(curSys === 'ios'){
+          $("#hasDevice").text(audioSize>1?"是":"否")
+        }else{
+          $("#hasDevice").text(audioSize>3?"是":"否")
+        }
+      }
+    }
+    function currentSystem(){
+      let system = navigator.userAgent.toLowerCase();
+      if (/(iPhone|iPad|iPod|iOS)/i.test(system)) {
+        return 'ios'
+      } else if (/(Android|Adr)/i.test(system)) {
+        return 'android'
+      };
+      return null
+    }
+    
   </script>
 </body>
 </html>
