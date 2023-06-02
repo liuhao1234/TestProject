@@ -22,13 +22,13 @@
   <script>
     var vConsole = new window.VConsole();
     var MediaDevices = navigator.mediaDevices
-    console.log(navigator)
+    console.log("window navigator",navigator)
     $('#language').text(navigator.language)
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       MediaDevices.enumerateDevices().then(devices=>{
         var audioDeviceList = []
         devices.forEach(element => {
-          console.log(element.toJSON())
+          console.log("getUserMedia enumerateDevices",element.toJSON())
           const currentDevice = element.toJSON()
           if(currentDevice.kind === 'audioinput'){
             audioDeviceList.push(currentDevice)
@@ -38,7 +38,11 @@
         $("#hasDevice").text(audioDeviceList.length>1?"是":"否")
       })
     })
-    
+    MediaDevices.enumerateDevices().then(devices=>{
+      devices.forEach(element => {
+        console.log("window enumerateDevices",element.toJSON())
+      })
+    })
   </script>
 </body>
 </html>
