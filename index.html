@@ -28,9 +28,9 @@
       MediaDevices.enumerateDevices().then(devices=>{
         var audioDeviceList = []
         devices.forEach(element => {
-          console.log("getUserMedia enumerateDevices",element.toJSON())
           const currentDevice = element.toJSON()
           if(currentDevice.kind === 'audioinput'){
+            console.log("getUserMedia enumerateDevices",element.toJSON())
             audioDeviceList.push(currentDevice)
             $("#audioinput").append("<div><span>麦克(耳机)设备</span>:<span>"+currentDevice.label+"</span></div>")
           }
@@ -40,7 +40,10 @@
     })
     MediaDevices.enumerateDevices().then(devices=>{
       devices.forEach(element => {
-        console.log("window enumerateDevices",element.toJSON())
+        const currentDevice = element.toJSON()
+        if(currentDevice.kind === 'audioinput'){
+          console.log("window enumerateDevices",element.toJSON())
+        }
       })
     })
   </script>
