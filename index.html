@@ -30,7 +30,16 @@
     $('#phoneSystem').text(currentSystem())
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       MediaDevices.enumerateDevices().then(devices=>{
-        printDevices(devices,"getUserMedia enumerateDevices")
+        const audioDevices = printDevices(devices,"getUserMedia enumerateDevices")
+        const curSys = currentSystem()
+        const audioSize = audioDevices.length
+        if(curSys){
+          if(curSys === 'ios'){
+            $("#hasDevice").text(audioSize>1?"是":"否")
+          }else{
+            $("#hasDevice").text(audioSize>3?"是":"否")
+          }
+        }
       })
     })
     MediaDevices.enumerateDevices().then(devices=>{
@@ -45,15 +54,7 @@
           console.log(name,currentDevice)
         }
       })
-      const curSys = currentSystem()
-      const audioSize = audioDevices.length
-      if(curSys){
-        if(curSys === 'ios'){
-          $("#hasDevice").text(audioSize>1?"是":"否")
-        }else{
-          $("#hasDevice").text(audioSize>3?"是":"否")
-        }
-      }
+      return audioDevices
     }
     
     function currentSystem(){
