@@ -19,6 +19,7 @@
       height: 100vh;
       background: rgba(0,0,0,.1);
       display: flex;
+      display: none;
       justify-content: center;
       align-items: center;
     }
@@ -52,11 +53,13 @@
   </div>
   <script>
     $(function(){
-      console.log()
       var $audioEle = $("#audioItem")
       var audioEle = $audioEle.get(0)
       $audioEle.on("durationchange",function(){
-        console.log(audioEle.duration)
+        console.log("durationchange",audioEle.duration)
+      })
+      $audioEle.on("loadedmetadata",function(){
+        console.log("loadedmetadata",audioEle.duration)
       })
       $("#mask-btn").click(function(){
         $(".mask").hide()
