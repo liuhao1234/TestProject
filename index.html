@@ -62,11 +62,22 @@
         $(".mask").hide()
         audioEle.load()
       })
-      console.log(WeixinJSBridge)
-      document.addEventListener("WeixinJSBridgeReady", function () {
+      
+      if(is_weixin()){
         console.log(WeixinJSBridge)
-        audioEle.load()
-      });
+        document.addEventListener("WeixinJSBridgeReady", function () {
+          audioEle.load()
+        });
+      }
+
+      function is_weixin(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+          return true;
+        } else {
+          return false;
+        }
+      }
     })
   </script>
 </body>
