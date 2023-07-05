@@ -14,7 +14,7 @@
     <div><span>设备系统</span>:<span id="phoneSystem"></span></div>
     <div><span>是否有耳机设备连接</span>:<span id="hasDevice"></span></div>
     <div>---------------------</div>
-    <audio controls>
+    <audio id="audioItem" controls>
       <source src="test.mp3" type="audio/mpeg">
       Your browser does not support this audio format.
     </audio>
@@ -24,10 +24,13 @@
   <script>
     var vConsole = new window.VConsole();
     var MediaDevices = navigator.mediaDevices
+    var audioEle = document.getElementById("audioItem")
+    console.log("audioEle",audioEle)
     console.log("window navigator",navigator)
     $('#language').text(navigator.language)
     $('#client').text(isMobile()?"移动端":"电脑端")
     $('#phoneSystem').text(currentSystem())
+
     MediaDevices.getUserMedia({audio:true}).then(stream=>{
       MediaDevices.enumerateDevices().then(devices=>{
         const audioDevices = printDevices(devices,"getUserMedia enumerateDevices")
