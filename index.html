@@ -12,7 +12,6 @@
       id="audioItem"
       controls
       preload="auto"
-      ondurationchange="handleDurationChange()"
     >
       <source src="test.mp3" type="audio/mpeg">
       Your browser does not support this audio format.
@@ -26,9 +25,9 @@
     var MediaDevices = navigator.mediaDevices
     var audioEle = document.getElementById("audioItem")
     console.log("window navigator36",navigator)
-    function handleDurationChange(){
+    audioEle.addEventListener("durationchange",function(){
       console.log("handleDurationChange",audioEle.duration)
-    }
+    })
   </script>
 </body>
 </html>
