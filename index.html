@@ -8,7 +8,12 @@
 </head>
 <body>
   <div>
-    <audio id="audioItem" controls>
+    <audio 
+      id="audioItem"
+      controls
+      preload="auto"
+      ondurationchange="handleDurationChange"
+    >
       <source src="test.mp3" type="audio/mpeg">
       Your browser does not support this audio format.
     </audio>
@@ -20,9 +25,10 @@
     var vConsole = new window.VConsole();
     var MediaDevices = navigator.mediaDevices
     var audioEle = document.getElementById("audioItem")
-    audioEle.load();
-    console.log("audioEle",audioEle.duration)
     console.log("window navigator",navigator)
+    function handleDurationChange(){
+      console.log("audioEle",audioEle.duration)
+    }
   </script>
 </body>
 </html>
