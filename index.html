@@ -52,6 +52,7 @@
   </div>
   <script>
     $(function(){
+      console.log()
       var $audioEle = $("#audioItem")
       var audioEle = $audioEle.get(0)
       $audioEle.on("durationchange",function(){
@@ -61,6 +62,11 @@
         $(".mask").hide()
         audioEle.load()
       })
+      console.log(WeixinJSBridge)
+      document.addEventListener("WeixinJSBridgeReady", function () {
+        console.log(WeixinJSBridge)
+        audioEle.load()
+      });
     })
   </script>
 </body>
