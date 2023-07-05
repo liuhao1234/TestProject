@@ -8,12 +8,6 @@
 </head>
 <body>
   <div>
-    <div><span>navigator.language</span>:<span id="language"></span></div>
-    <div>---------------------</div>
-    <div><span>设备端</span>:<span id="client"></span></div>
-    <div><span>设备系统</span>:<span id="phoneSystem"></span></div>
-    <div><span>是否有耳机设备连接</span>:<span id="hasDevice"></span></div>
-    <div>---------------------</div>
     <audio id="audioItem" controls>
       <source src="test.mp3" type="audio/mpeg">
       Your browser does not support this audio format.
@@ -29,54 +23,6 @@
     audioEle.load();
     console.log("audioEle",audioEle.duration)
     console.log("window navigator",navigator)
-    $('#language').text(navigator.language)
-    $('#client').text(isMobile()?"移动端":"电脑端")
-    $('#phoneSystem').text(currentSystem())
-
-    MediaDevices.getUserMedia({audio:true}).then(stream=>{
-      MediaDevices.enumerateDevices().then(devices=>{
-        const audioDevices = printDevices(devices,"getUserMedia enumerateDevices")
-        const curSys = currentSystem()
-        const audioSize = audioDevices.length
-        if(curSys){
-          if(curSys === 'ios'){
-            $("#hasDevice").text(audioSize>1?"是":"否")
-          }else{
-            $("#hasDevice").text(audioSize>3?"是":"否")
-          }
-        }
-      })
-    })
-    MediaDevices.enumerateDevices().then(devices=>{
-      printDevices(devices,"window enumerateDevices")
-    })
-    function printDevices(devices,name){
-      const audioDevices = []
-      devices.forEach(element => {
-        const currentDevice = element.toJSON()
-        if(currentDevice.kind === 'audioinput'){
-          audioDevices.push(currentDevice)
-          console.log(name,currentDevice)
-        }
-      })
-      return audioDevices
-    }
-    
-    function currentSystem(){
-      let system = navigator.userAgent.toLowerCase();
-      if (/(iPhone|iPad|iPod|iOS)/i.test(system)) {
-        return 'ios'
-      } else if (/(Android|Adr)/i.test(system)) {
-        return 'android'
-      };
-      return null
-    }
-
-    function  isMobile(){
-      // 判断不同端
-      let plat = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
-      return plat
-    }
   </script>
 </body>
 </html>
