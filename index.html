@@ -10,6 +10,28 @@
   <script>
     var vConsole = new window.VConsole();
   </script>
+  <style>
+    .mask{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .mask .content{
+      width: 80%;
+      height: 100px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
   <div>
@@ -22,11 +44,22 @@
       Your browser does not support this audio format.
     </audio>
   </div>
+  <div class="mask">
+    <div class="content">
+      <span>liuliang</span>
+      <button id="mask-btn">我知道了</button>
+    </div>
+  </div>
   <script>
     $(function(){
       var $audioEle = $("#audioItem")
+      var audioEle = $audioEle.get(0)
       $audioEle.on("durationchange",function(){
-        console.log($audioEle.get(0).duration)
+        console.log(audioEle.duration)
+      })
+      $("#mask-btn").click(function(){
+        $(".mask").hide()
+        audioEle.load()
       })
     })
   </script>
