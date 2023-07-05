@@ -26,6 +26,7 @@
     var vConsole = new window.VConsole();
     var MediaDevices = navigator.mediaDevices
     var audioEle = document.getElementById("audioItem")
+    audioEle.load();
     console.log("audioEle",audioEle.duration)
     console.log("window navigator",navigator)
     $('#language').text(navigator.language)
