@@ -5,6 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script>
+    var vConsole = new window.VConsole();
+  </script>
 </head>
 <body>
   <div>
@@ -17,16 +22,12 @@
       Your browser does not support this audio format.
     </audio>
   </div>
-  <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
-  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script>
-    // ssssaaassss
-    var vConsole = new window.VConsole();
-    var MediaDevices = navigator.mediaDevices
-    var audioEle = document.getElementById("audioItem")
-    console.log("window navigator36",navigator)
-    audioEle.addEventListener("durationchange",function(){
-      console.log("handleDurationChange",audioEle.duration)
+    $(function(){
+      var $audioEle = $("#audioItem")
+      $audioEle.on("durationchange",function(){
+        console.log($audioEle.get(0).duration)
+      })
     })
   </script>
 </body>
