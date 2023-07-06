@@ -45,6 +45,11 @@
       Your browser does not support this audio format.
     </audio>
   </div>
+  <div>
+    <button id="play_btn">开始暂停</button>
+    <button id="volume_btn">静音设置</button>
+  </div>
+  <button id="mask_btn">显示遮罩</button>
   <div class="mask">
     <div class="content">
       <span>liuliang</span>
@@ -55,17 +60,30 @@
     $(function(){
       var $audioEle = $("#audioItem")
       var audioEle = $audioEle.get(0)
+      console.log($audioEle)
       $audioEle.on("durationchange",function(){
         console.log("durationchange",audioEle.duration)
       })
       $audioEle.on("loadedmetadata",function(){
         console.log("loadedmetadata",audioEle.duration)
       })
+      $("#mask_btn").click(function(){
+        $(".mask").show()
+      })
       $("#mask-btn").click(function(){
         $(".mask").hide()
         audioEle.load()
       })
-      
+      $("#play_btn").click(function(){
+        if(audioEle.paused){
+          audioEle.play()
+        }else{
+          audioEle.pause()
+        }
+      })
+      $("#volume_btn").click(function(){
+        audioEle.muted = !audioEle.muted
+      })
       if(is_weixin()){
         console.log(WeixinJSBridge)
         document.addEventListener("WeixinJSBridgeReady", function () {
